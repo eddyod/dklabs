@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title text-left>Teacher Details
+    <img class="title-image" *ngIf="authService.isLoggedIn | async" alt="My Picture" height="40"   src="{{authService.person.picture}}" >
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding *ngIf="!(authService.isLoggedIn | async)">
+
+  <ion-button color="primary" expand="block" routerLink="/account/login" routerDirection="root">Login</ion-button>
+
+  <div>You are not logged in</div>
+
+</ion-content>
+
+<ion-content padding *ngIf="authService.isLoggedIn | async">
+
+  <ion-button color="primary" expand="block" routerLink="/account/userinfo" routerDirection="root">Userinfo</ion-button>
+  <ion-button color="medium" expand="block" (click)="refreshGPS()">Refresh GPS</ion-button>
+  <ion-button color="tertiary" expand="block" routerLink="/schedules">Classes Today</ion-button>
+  <ion-button color="danger" expand="block" (click)="fbSignOut()">Logout</ion-button>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size-xs="12" size-sm="6" size-md="4" size-lg="3" size-xl="2">
+        <ion-item>
+          <ion-label position="floating">First Name</ion-label>
+          <ion-input readonly value="{{authService.person.firstName}}"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size-xs="12" size-sm="6" size-md="4" size-lg="3" size-xl="2">
+        <ion-item>
+          <ion-label position="floating">Last Name</ion-label>
+          <ion-input readonly value="{{authService.person.lastName}}"></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size-xs="12" size-sm="6" size-md="4" size-lg="3" size-xl="2">
+        <ion-item>
+          <ion-label position="floating">Phone</ion-label>
+          <ion-input readonly value="{{authService.person.phone}}"></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size-xs="12" size-sm="6" size-md="4" size-lg="3" size-xl="2">
+        <ion-item>
+          <ion-label position="floating">City/Town</ion-label>
+          <ion-input readonly value="{{authService.person.address}}"></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size-xs="12" size-sm="6" size-md="4" size-lg="3" size-xl="2">
+        <ion-item>
+          <ion-label position="floating">Current latitude</ion-label>
+          <ion-input readonly value="{{authService.person.latitude}}"></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size-xs="12" size-sm="6" size-md="4" size-lg="3" size-xl="2">
+        <ion-item>
+          <ion-label position="floating">Current longitude</ion-label>
+          <ion-input readonly value="{{authService.person.longitude}}"></ion-input>
+        </ion-item>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

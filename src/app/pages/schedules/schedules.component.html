@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title text-left>Your Class Schedule
+    <img class="title-image" *ngIf="authService.isLoggedIn | async" alt="My Picture" height="40"   src="{{authService.person.picture}}" >
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding *ngIf="!(authService.isLoggedIn | async)">
+
+  <ion-button color="primary" expand="block" routerLink="/account/login" routerDirection="root">Login</ion-button>
+
+  <div>You are not logged in</div>
+
+</ion-content>
+
+
+<ion-content padding *ngIf="authService.isLoggedIn | async">
+
+
+  <ion-button color="primary" expand="block" routerLink="/account/userinfo" routerDirection="root">Userinfo</ion-button>
+  <ion-button color="secondary" expand="block" (click)="getMySchedules()">All My Classes</ion-button>
+  <ion-button color="tertiary" expand="block" (click)="getTodaySchedule()">Classes Today</ion-button>
+
+  <ion-grid>
+
+    <ion-card *ngIf="schedules.length === 0">
+      <ion-card-header>
+        There are no classes.
+      </ion-card-header>
+    </ion-card>
+
+    <ion-row *ngFor="let s of schedules" size-xs="12" size-sm="6" size-md="4" size-lg="3" size-xl="2">
+      <ion-col>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-subtitle>
+              Class starts at: {{s.start | date:'short' : 'UTC'}}
+            </ion-card-subtitle>
+            <ion-card-subtitle>
+              Arrived at school:
+              <ion-icon src="https://www.mephistosoftware.com/premier-mobile/assets/icons/md-true.svg" *ngIf="s.completed"></ion-icon>
+              <ion-icon src="https://www.mephistosoftware.com/premier-mobile/assets/icons/md-false.svg" *ngIf="!s.completed"></ion-icon>
+            </ion-card-subtitle>
+            <ion-card-title>
+              {{s.person.name}} is teaching at {{s.location.name}} , {{s.location.address}}
+              <span *ngIf="s.distance">, distance of {{s.distance}} km.</span>
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content *ngIf="displayImHere">
+            <ion-button color="tertiary" expand="block" (click)="setShowedUp(s)" [disabled]="!s.displayArrived || s.completed">I'm here</ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+
+</ion-content>
