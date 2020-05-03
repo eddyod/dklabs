@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>DK Lab Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding class="center">
+  <ion-list>
+    
+    <ion-item no-padding>
+      <ion-label floating>User Name</ion-label>
+      <ion-input [(ngModel)]="user.username" type="text" style="background-color:transparent"></ion-input>
+    </ion-item>
+
+    <ion-item no-padding>
+      <ion-label floating>Password</ion-label>
+      <ion-input [(ngModel)]="user.password" type="password"></ion-input>
+    </ion-item>
+
+    <button padding (click)="homePage()" color=secondary ion-button full round>Login</button>
+
+    <a (click)="registerPage()">New ? Register here</a>
+  </ion-list>
+</ion-content>

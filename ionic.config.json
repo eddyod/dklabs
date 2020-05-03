@@ -1,0 +1,7 @@
+{
+  "name": "dklabs",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
